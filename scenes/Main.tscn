@@ -1,0 +1,121 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://assets/img/PlayerTest.png" type="Texture" id=1]
+[ext_resource path="res://scripts/PlayerTest.gd" type="Script" id=2]
+[ext_resource path="res://scenes/joystick.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/img/sword.png" type="Texture" id=4]
+[ext_resource path="res://assets/img/woodwall.png" type="Texture" id=5]
+[ext_resource path="res://assets/img/uparrow.png" type="Texture" id=6]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 19.0
+height = 26.0
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 479.72
+
+[sub_resource type="CircleShape2D" id=5]
+radius = 498.51
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 19.5, 515 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 19.5, 279 )
+
+[node name="Main" type="Node2D"]
+
+[node name="bg" type="ColorRect" parent="."]
+show_behind_parent = true
+margin_left = -526.0
+margin_top = 1.0
+margin_right = 951.0
+margin_bottom = 1247.0
+mouse_filter = 2
+color = Color( 0.156863, 0.505882, 0.45098, 1 )
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 233, 570 )
+input_pickable = true
+script = ExtResource( 2 )
+joystick = NodePath("GUI/Joystick")
+
+[node name="Sprite" type="Sprite" parent="Player"]
+position = Vector2( 2.25, -0.25 )
+scale = Vector2( 0.565574, 0.437931 )
+texture = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 3, 0 )
+shape = SubResource( 1 )
+
+[node name="GUI" type="CanvasLayer" parent="Player"]
+
+[node name="Joystick" parent="Player/GUI" instance=ExtResource( 3 )]
+position = Vector2( 84, 853 )
+
+[node name="buttons" type="Node2D" parent="Player/GUI"]
+position = Vector2( 212, 889 )
+
+[node name="left" type="TouchScreenButton" parent="Player/GUI/buttons"]
+modulate = Color( 0.670588, 0.109804, 0.74902, 1 )
+rotation = -1.57079
+scale = Vector2( 0.0644531, 0.0693359 )
+normal = ExtResource( 6 )
+shape = SubResource( 4 )
+action = "ui_left"
+
+[node name="right" type="TouchScreenButton" parent="Player/GUI/buttons"]
+modulate = Color( 0.670588, 0.109804, 0.74902, 1 )
+position = Vector2( 173, -67 )
+rotation = -4.71238
+scale = Vector2( 0.0644531, 0.0693359 )
+normal = ExtResource( 6 )
+shape = SubResource( 5 )
+action = "ui_right"
+
+[node name="arrow" type="Sprite" parent="Player"]
+position = Vector2( -2, -1 )
+scale = Vector2( 0.0429866, 0.0686827 )
+texture = ExtResource( 4 )
+offset = Vector2( 260, -280.396 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+zoom = Vector2( 1, 0.7 )
+
+[node name="border" type="StaticBody2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="border"]
+position = Vector2( -11, 510 )
+scale = Vector2( 0.05, 1.92135 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
+position = Vector2( -9.5, 505 )
+shape = SubResource( 2 )
+
+[node name="border2" type="StaticBody2D" parent="."]
+position = Vector2( 516, 1 )
+
+[node name="Sprite" type="Sprite" parent="border2"]
+position = Vector2( -11, 510 )
+scale = Vector2( 0.05, 1.92135 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border2"]
+position = Vector2( -9.5, 505 )
+shape = SubResource( 2 )
+
+[node name="border3" type="StaticBody2D" parent="."]
+position = Vector2( -31, 1023 )
+rotation = -1.57079
+
+[node name="Sprite" type="Sprite" parent="border3"]
+position = Vector2( -11, 277.985 )
+scale = Vector2( 0.05, 1.04114 )
+texture = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border3"]
+position = Vector2( -9.50018, 277 )
+shape = SubResource( 3 )
